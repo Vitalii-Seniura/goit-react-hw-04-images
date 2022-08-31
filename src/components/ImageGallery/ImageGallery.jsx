@@ -15,6 +15,9 @@ export const ImageGallery = ({ imageName }) => {
   const [totalHits, setTotalHits] = useState(0);
 
   useEffect(() => {
+    if (!imageName) {
+      return;
+    }
     setStatus('pending');
     setPage(1);
     setImages([]);
@@ -28,6 +31,9 @@ export const ImageGallery = ({ imageName }) => {
   }, [imageName]);
 
   useEffect(() => {
+    if (!imageName) {
+      return;
+    }
     setStatus('pending');
     fetchImage(imageName, page)
       .then(data => {
@@ -39,7 +45,7 @@ export const ImageGallery = ({ imageName }) => {
         }
       })
       .catch(error => setError(error), setStatus('rejected'));
-  }, [page]);
+  }, [imageName, page]);
 
   const loadMore = () => {
     setPage(state => state + 1);
